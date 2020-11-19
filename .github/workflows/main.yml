@@ -2,7 +2,7 @@ name: develop-stage-promote
 
 on:
   schedule:
-    - cron: "0/5 * * * *"
+    - cron: "45 16 * * *"
 
 jobs:
   stagePromotion:
