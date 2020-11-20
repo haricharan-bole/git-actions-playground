@@ -22,9 +22,9 @@ jobs:
           OUTPUT=""
           for message in $(git log --pretty=format:"%h %s" --graph origin/stage origin/develop)
             do
-            OUTPUT+= "${message}"
+            OUTPUT+= "${$message}"
             done
-          echo ::set-output name=pr_body::"$(OUTPUT)"
+          echo ::set-output name=pr_body::"$($OUTPUT)"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
