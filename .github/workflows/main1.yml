@@ -15,12 +15,22 @@ jobs:
         run: |
           git fetch origin develop:develop
           git reset --hard develop
+      - name: Set output variables
+        id: vars
+        run: |
+          echo ::set-output name=pr_title::"[Auto] Add changes at $(date +%d-%m-%Y)"
+          echo ::set-output name=pr_body::"This PR was auto-generated on $(date +%d-%m-%Y) \
+            by [create-pull-request](https://github.com/peter-evans/create-pull-request)."
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           branch: develop
           labels: automerge
+          title: ${{ steps.vars.outputs.pr_title }}
+          body: ${{ steps.vars.outputs.pr_body }}
       - name: automerge
         uses: "pascalgn/automerge-action@v0.12.0"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
