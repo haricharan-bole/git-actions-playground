@@ -19,12 +19,7 @@ jobs:
         id: vars
         run: |
           echo ::set-output name=pr_title::"[Auto] Add changes $(date '+on %Y/%m/%d at %H:%M:%S %Z')"
-          OUTPUT=""
-          for message in $(git log --pretty=format:"%h %s" --graph origin/stage origin/develop)
-            do
-            OUTPUT+= $message
-            done
-          echo ::set-output name=pr_body:: $OUTPUT
+          echo ::set-output name=pr_body::"$(git log origin/stage..origin/develop --oneline --no-merges)"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
