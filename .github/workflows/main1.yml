@@ -18,7 +18,8 @@ jobs:
       - name: Set output variables
         id: vars
         run: |
-          body=$(git log --pretty=oneline --since=$(date '+%Y-%m-%d') --no-merges origin/stage..origin/develop)
+          sudo apt-get install git-extras
+          body=$(git commits-since yesterday)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
