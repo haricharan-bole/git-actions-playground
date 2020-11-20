@@ -18,7 +18,7 @@ jobs:
       - name: Set output variables
         id: vars
         run: |
-          body=$(git log --pretty=oneline origin/stage...origin/develop)
+          body=$(git diff origin/stage...origin/develop)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
