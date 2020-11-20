@@ -18,8 +18,7 @@ jobs:
       - name: Set output variables
         id: vars
         run: |
-          git log origin/develop --not origin/stage --decorate --pretty >> ./pr-body.txt
-          body=$(cat pr-body.txt)
+          body=$(git log origin/develop --not origin/stage --decorate --pretty)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
