@@ -14,7 +14,6 @@ jobs:
       - name: Reset promotion branch
         run: |
           git fetch origin develop:develop
-          git reset --hard develop
       - name: Set output variables
         id: vars
         run: |
