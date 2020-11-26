@@ -19,7 +19,7 @@ jobs:
         id: vars
         run: |
           sudo apt-get install git-extras
-          body=$(git log --no-merges)
+          body=$(git log stage..develop --oneline --no-merges)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
