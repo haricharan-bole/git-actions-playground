@@ -167,10 +167,4 @@ commit 97d5502f562db16feaf8cbeae6a1950daf7f2c1a
 Author: Haricharan Bole <72374905+haricharan-bole@users.noreply.github.com>
 Date:   Thu Nov 19 22:04:36 2020 +0530
 
-    Update README.md
 
-commit 08e688d480efcc250fac1e6ed32650f24d478884
-Author: Haricharan Bole <72374905+haricharan-bole@users.noreply.github.com>
-Date:   Thu Nov 19 21:53:43 2020 +0530
-
-    Initial commit
