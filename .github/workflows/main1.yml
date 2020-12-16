@@ -19,6 +19,9 @@ jobs:
         id: vars
         run: |
           body=$(git log origin/stage..origin/develop --oneline)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
           echo ::set-output name=pr_title::"[Auto] Add changes $(date '+on %Y/%m/%d at %H:%M:%S %Z')"
           echo ::set-output name=pr_body::$body
       - name: Create Pull Request
