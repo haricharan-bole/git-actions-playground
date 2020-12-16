@@ -11,18 +11,14 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: stage
-      - name: Reset promotion branch
+      - name: Reset develop branch
         run: |
           git fetch origin develop:develop
           git reset --hard develop
       - name: Set output variables
         id: vars
         run: |
-          sudo apt-get install git-extras
-          body=$(git log stage..develop --oneline --no-merges)
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}"
+          body=$(git log origin/stage..origin/develop --oneline)
           echo ::set-output name=pr_title::"[Auto] Add changes $(date '+on %Y/%m/%d at %H:%M:%S %Z')"
           echo ::set-output name=pr_body::$body
       - name: Create Pull Request
