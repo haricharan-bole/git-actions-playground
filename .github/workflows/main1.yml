@@ -13,7 +13,6 @@ jobs:
           ref: stage
       - name: Reset develop branch
         run: |
-          git fetch origin stage:stage
           git fetch origin develop:develop
           git reset --hard develop
       - name: Set output variables
