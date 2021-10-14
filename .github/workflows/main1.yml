@@ -13,12 +13,11 @@ jobs:
           ref: stage
       - name: Reset develop branch
         run: |
-          git fetch origin develop:develop
-          git reset --hard develop
+          git fetch
       - name: Set output variables
         id: vars
         run: |
-          body=$(git log origin/stage..origin/develop --oneline)
+          body=$(git log origin/stage..origin/develop)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
