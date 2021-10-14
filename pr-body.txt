@@ -1,12 +1,3 @@
-commit 7431f96224c267d49558e2789a35dd795ca4ae1e
-Author: Haricharan Bole <72374905+haricharan-bole@users.noreply.github.com>
-Date:   Fri Nov 20 15:10:35 2020 +0530
-
-    Update test.js
-    
-    
-    dslfjas;dfl
-
 commit 0339eaacbcec267d9fd16d47b7f44b18715be44b
 Author: Haricharan Bole <72374905+haricharan-bole@users.noreply.github.com>
 Date:   Fri Nov 20 15:10:20 2020 +0530
