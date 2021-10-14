@@ -10,21 +10,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: origin/stage
+          ref: stage
+      - name: Reset develop branch
+        run: |
+          git fetch origin stage:stage
+          git fetch origin develop:develop
+          git reset --hard develop
       - name: Set output variables
         id: vars
         run: |
-          body=$(git log origin/stage...origin/develop)
+          body=$(git log stage..develop --oneline)
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo ::set-output name=pr_title::"Merge `develop` to `stage`"
+          echo ::set-output name=pr_title::"[Auto] Add changes $(date '+on %Y/%m/%d at %H:%M:%S %Z')"
           echo ::set-output name=pr_body::$body
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: origin/develop
-          labels: automerge, automatic
+          branch: develop
+          labels: automerge
           title: ${{ steps.vars.outputs.pr_title }}
           body: ${{ steps.vars.outputs.pr_body }}
       - name: automerge
