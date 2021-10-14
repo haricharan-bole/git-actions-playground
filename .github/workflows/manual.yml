@@ -1,0 +1,42 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+jobs:
+  stagePromotion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: stage
+      - name: Reset develop branch
+        run: |
+          git fetch origin stage:stage
+          git fetch origin develop:develop
+          git reset --hard develop
+      - name: Set output variables
+        id: vars
+        run: |
+          body=$(git log stage..develop --oneline)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
+          echo ::set-output name=pr_title::"[Auto] Add changes $(date '+on %Y/%m/%d at %H:%M:%S %Z')"
+          echo ::set-output name=pr_body::$body
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: develop
+          labels: automerge
+          title: ${{ steps.vars.outputs.pr_title }}
+          body: ${{ steps.vars.outputs.pr_body }}
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.12.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
