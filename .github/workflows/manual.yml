@@ -25,3 +25,7 @@ jobs:
         pr_body: "👑 *An automated PR*"
         pr_label: "automerge"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: automerge
+      uses: "pascalgn/automerge-action@v0.12.0"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
